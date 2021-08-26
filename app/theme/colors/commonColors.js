@@ -1,0 +1,2 @@
+import StandardColors from './index';
+
