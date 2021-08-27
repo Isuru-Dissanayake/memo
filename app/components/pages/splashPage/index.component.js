@@ -13,6 +13,7 @@ import {
 import {logo} from '../../../assets/images';
 import navigationServices from '../../../services/navigationServices';
 import {NAVIGATION_SCREENS} from '../../../utility/constants/constants';
+import {AuthApi} from '../../../utility/apis';
 
 @inject('authStore')
 @observer
@@ -23,6 +24,7 @@ class SplashPage extends React.Component {
       loading: false,
       user: null,
     };
+    this.authApi = new AuthApi();
   }
 
   onSignUpPress = () => {
@@ -31,7 +33,6 @@ class SplashPage extends React.Component {
 
   onAuthStateChanged(user) {
     const {authStore} = this.props;
-    let currentUser;
     if (user) {
       this.setState({user: user});
     }
@@ -40,6 +41,7 @@ class SplashPage extends React.Component {
   }
 
   componentDidMount() {
+    //this.authApi.signOutCurrentUser();
     const {authStore} = this.props;
     this.setState({loading: true});
     const subscriber = auth().onAuthStateChanged(user => {

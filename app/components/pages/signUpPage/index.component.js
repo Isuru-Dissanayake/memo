@@ -74,7 +74,6 @@ class SignUpPage extends React.Component {
       email,
       password,
     );
-    this.setState({loading: false});
     switch (signupStatus) {
       case SIGN_UP_STATUS.ACCOUNT_CREATED:
         this.setState({isError: false});

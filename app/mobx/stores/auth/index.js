@@ -13,6 +13,12 @@ export default class AuthStore {
   @action
   setCurrentUser(user) {
     this.currentUser = user;
+    if (user) {
+      this.setIsUserLogedIn(true);
+    } else {
+      this.setIsUserLogedIn(false);
+    }
+    console.log('setCurrentUser', user);
   }
 
   getCurrentUser() {

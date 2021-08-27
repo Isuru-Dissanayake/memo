@@ -5,6 +5,7 @@ class AuthApi {
   constructor(props) {}
 
   async createUserWithEmail(email, password) {
+    console.log(email, password);
     let signupStatus;
     await auth()
       .createUserWithEmailAndPassword(email, password)
@@ -26,6 +27,12 @@ class AuthApi {
         console.error(error);
       });
     return signupStatus;
+  }
+
+  async signOutCurrentUser() {
+    await auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
   }
 }
 
