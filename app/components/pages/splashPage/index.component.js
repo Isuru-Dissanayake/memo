@@ -3,6 +3,7 @@ import {View, Text, StatusBar, Image} from 'react-native';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
 import LOGGER from '../../../utility/logger';
+import {inject, observer} from 'mobx-react';
 
 import {
   CustomStatusBar,
@@ -13,12 +14,13 @@ import {logo} from '../../../assets/images';
 import navigationServices from '../../../services/navigationServices';
 import {NAVIGATION_SCREENS} from '../../../utility/constants/constants';
 
+@inject('authStore')
+@observer
 class SplashPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
-      initializing: true,
       user: null,
     };
   }
@@ -28,12 +30,17 @@ class SplashPage extends React.Component {
   };
 
   onAuthStateChanged(user) {
-    const {initializing} = this.state;
-    this.setState({user: user});
+    let currentUser;
+    if (user) {
+      this.setState({user: user});
+    }
+    this.setState({loading: false});
   }
 
-  componentDidMount() {
-    const subscriber = auth().onAuthStateChanged(user => {
+  async componentDidMount() {
+    const {authStore} = this.props;
+    this.setState({loading: true});
+    const subscriber = await auth().onAuthStateChanged(user => {
       this.onAuthStateChanged(user);
     });
   }
