@@ -1,6 +1,6 @@
-import { StyleSheet, Platform } from "react-native";
-import commonStyles from "../../../theme/styles/commonStyles";
-import COLORS from "../../../theme/colors";
+import {StyleSheet, Platform} from 'react-native';
+import commonStyles from '../../../theme/styles/commonStyles';
+import COLORS from '../../../theme/colors';
 
 export default StyleSheet.create({
   container: {
@@ -8,10 +8,10 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 70,
     paddingBottom: 30,
-    alignItems: "center",
+    alignItems: 'center',
   },
   textInputContainer: {
-    width: "90%",
+    width: '90%',
   },
   textInput: {
     marginBottom: 20,
@@ -29,8 +29,8 @@ export default StyleSheet.create({
     color: COLORS.PRIMARY_WHITE,
   },
   headerTextContainer: {
-    textAlign: "center",
-    alignItems: "center",
+    textAlign: 'center',
+    alignItems: 'center',
     marginBottom: 25,
   },
   headerText: {
@@ -38,5 +38,9 @@ export default StyleSheet.create({
   },
   headerSubtitle: {
     ...commonStyles.bodySecondaryText,
+  },
+  errorMessageContainer: {
+    marginTop: 5,
+    alignItems: 'center',
   },
 });

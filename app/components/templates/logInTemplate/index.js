@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import styles from './styles';
 import LOGGER from '../../../utility/logger';
 import COLORS from '../../../theme/colors';
+import commonStyles from '../../../theme/styles/commonStyles';
 
 import {
   CustomStatusBar,
@@ -21,6 +22,10 @@ const LogInTemplate = props => {
     subtitle,
     buttonText,
     onPressConfirm,
+    isError,
+    errorMessage,
+    emailRef,
+    passwordRef,
   } = props;
   return (
     <View style={styles.container}>
@@ -31,6 +36,7 @@ const LogInTemplate = props => {
       </View>
       <View style={styles.textInputContainer}>
         <StandardTextInput
+          ref={emailRef}
           autoFocus={false}
           placeholder={'email'}
           placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
@@ -38,11 +44,21 @@ const LogInTemplate = props => {
           onChangeText={email => onChangeEmail(email)}
         />
         <StandardTextInput
+          ref={passwordRef}
           placeholder={'password'}
           placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
           secureTextEntry={true}
           onChangeText={password => onchangePassword(password)}
         />
+        {isError ? (
+          <View style={styles.errorMessageContainer}>
+            <Text style={commonStyles.errorText}>{errorMessage}</Text>
+          </View>
+        ) : (
+          <View>
+            <Text style={commonStyles.errorText}>{null}</Text>
+          </View>
+        )}
       </View>
       <View style={styles.buttonContainer}>
         <StandardButton

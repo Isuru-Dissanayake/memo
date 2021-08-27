@@ -1,8 +1,8 @@
-import React from "react";
-import { View, TextInput } from "react-native";
-import styles from "./styles";
+import React from 'react';
+import {View, TextInput} from 'react-native';
+import styles from './styles';
 
-const StandardTextInput = (props) => {
+const StandardTextInput = props => {
   const {
     containerStyle,
     textStyle,

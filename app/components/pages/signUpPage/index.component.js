@@ -79,10 +79,18 @@ class SignUpPage extends React.Component {
         this.setState({isError: false});
         return;
       case SIGN_UP_STATUS.EMAIL_ALREADY_USED:
-        this.setState({isError: true, errorMessage: 'Email already is use'});
+        this.setState({
+          isError: true,
+          errorMessage: 'Email already is use',
+          loading: false,
+        });
         return;
       case SIGN_UP_STATUS.INVALID_EMAIL:
-        this.setState({isError: true, errorMessage: 'Invalid Email'});
+        this.setState({
+          isError: true,
+          errorMessage: 'Invalid Email',
+          loading: false,
+        });
         return;
     }
   }
@@ -91,7 +99,7 @@ class SignUpPage extends React.Component {
   }
 
   render() {
-    const {loading, isDisabled} = this.state;
+    const {loading, isDisabled, isError, errorMessage} = this.state;
     return (
       <View style={styles.container}>
         {loading && <StandardActivityIndicator />}
@@ -106,6 +114,8 @@ class SignUpPage extends React.Component {
           }}
           onchangePassword={password => this.onchangePassword(password)}
           onPressConfirm={() => this.onPressConfirm()}
+          isError={isError}
+          errorMessage={errorMessage}
         />
       </View>
     );

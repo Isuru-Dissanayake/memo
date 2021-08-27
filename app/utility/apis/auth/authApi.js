@@ -23,8 +23,6 @@ class AuthApi {
           console.log('That email address is invalid!');
           signupStatus = SIGN_UP_STATUS.INVALID_EMAIL;
         }
-
-        console.error(error);
       });
     return signupStatus;
   }
@@ -33,6 +31,10 @@ class AuthApi {
     await auth()
       .signOut()
       .then(() => console.log('User signed out!'));
+  }
+
+  async updateCurrentUser(data) {
+    await firebase.auth().currentUser.updateProfile(data);
   }
 }
 
