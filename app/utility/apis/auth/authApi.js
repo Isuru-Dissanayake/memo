@@ -27,10 +27,6 @@ class AuthApi {
       });
     return signupStatus;
   }
-
-  async updateCurrentUserStatus() {
-    await auth().onAuthStateChanged(user => {});
-  }
 }
 
 export default AuthApi;

@@ -30,17 +30,19 @@ class SplashPage extends React.Component {
   };
 
   onAuthStateChanged(user) {
+    const {authStore} = this.props;
     let currentUser;
     if (user) {
       this.setState({user: user});
     }
+    authStore.setCurrentUser(user);
     this.setState({loading: false});
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const {authStore} = this.props;
     this.setState({loading: true});
-    const subscriber = await auth().onAuthStateChanged(user => {
+    const subscriber = auth().onAuthStateChanged(user => {
       this.onAuthStateChanged(user);
     });
   }
