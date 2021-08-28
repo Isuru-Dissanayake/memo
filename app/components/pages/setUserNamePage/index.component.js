@@ -35,6 +35,7 @@ class SetUserNamePage extends React.Component {
 
   async onPressConfirm() {
     this.setState({loading: true});
+    Keyboard.dismiss();
     const {username} = this.state;
     const {authStore} = this.props;
     const currentUser = authStore.getCurrentUser();
