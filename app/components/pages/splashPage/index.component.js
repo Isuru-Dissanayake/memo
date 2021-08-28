@@ -3,6 +3,7 @@ import {View, Text, StatusBar, Image} from 'react-native';
 import styles from './styles';
 import auth from '@react-native-firebase/auth';
 import LOGGER from '../../../utility/logger';
+import {inject, observer} from 'mobx-react';
 
 import {
   CustomStatusBar,
@@ -12,15 +13,18 @@ import {
 import {logo} from '../../../assets/images';
 import navigationServices from '../../../services/navigationServices';
 import {NAVIGATION_SCREENS} from '../../../utility/constants/constants';
+import {AuthApi} from '../../../utility/apis';
 
+@inject('authStore')
+@observer
 class SplashPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
-      initializing: true,
       user: null,
     };
+    this.authApi = new AuthApi();
   }
 
   onSignUpPress = () => {
@@ -28,11 +32,18 @@ class SplashPage extends React.Component {
   };
 
   onAuthStateChanged(user) {
-    const {initializing} = this.state;
-    this.setState({user: user});
+    const {authStore} = this.props;
+    if (user) {
+      this.setState({user: user});
+    }
+    authStore.setCurrentUser(user);
+    this.setState({loading: false});
   }
 
   componentDidMount() {
+    //this.authApi.signOutCurrentUser();
+    const {authStore} = this.props;
+    this.setState({loading: true});
     const subscriber = auth().onAuthStateChanged(user => {
       this.onAuthStateChanged(user);
     });

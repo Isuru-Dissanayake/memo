@@ -13,5 +13,5 @@ export default {
   TEXT_INPUT_BACKGROUND: '#202227',
   PLACEHOLDER_TEXT: 'rgba(255, 255, 255, 0.38)',
 
-  ERROR_RED: '#cf6679',
+  ERROR_RED: '#aa133d',
 };

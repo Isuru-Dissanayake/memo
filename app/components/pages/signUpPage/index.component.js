@@ -1,14 +1,19 @@
 import React from 'react';
 import {View, Text, Keyboard} from 'react-native';
 import styles from './styles';
-import auth from '@react-native-firebase/auth';
 import LOGGER from '../../../utility/logger';
+import {inject, observer} from 'mobx-react';
 
 import {StandardActivityIndicator} from '../../atoms/index';
 import {LogInTemplate} from '../../templates/index';
-
 import ValidateUserInfo from '../../../utility/validateUserInfo';
+import {SIGN_UP_STATUS} from '../../../utility/constants/constants';
+import navigationServices from '../../../services/navigationServices';
+import {NAVIGATION_SCREENS} from '../../../utility/constants/constants';
 
+import {AuthApi, AccountApi} from '../../../utility/apis';
+@inject('authStore')
+@observer
 class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +24,11 @@ class SignUpPage extends React.Component {
       isValidEmail: false,
       isValidPassword: null,
       isDisabled: true,
+      isError: false,
+      errorMessage: null,
     };
+    this.AuthApi = new AuthApi();
+    this.accountApi = new AccountApi();
   }
 
   isValidEmailPassword(e) {
@@ -62,16 +71,49 @@ class SignUpPage extends React.Component {
       },
     );
   }
-  onPressConfirm() {
+
+  async createNewUser() {
+    const {authStore} = this.props;
+    const currentUser = this.AuthApi.getCurrentUser();
+    await this.accountApi.createNewUser(currentUser.uid, currentUser.email);
+    navigationServices.navigateWithState(NAVIGATION_SCREENS.SetUserNamePage);
+  }
+
+  async onPressConfirm() {
+    const {email, password} = this.state;
     Keyboard.dismiss();
     this.setState({loading: true});
+    const signupStatus = await this.AuthApi.createUserWithEmail(
+      email,
+      password,
+    );
+    switch (signupStatus) {
+      case SIGN_UP_STATUS.ACCOUNT_CREATED:
+        this.setState({isError: false, loading: false});
+        this.createNewUser();
+        break;
+      case SIGN_UP_STATUS.EMAIL_ALREADY_USED:
+        this.setState({
+          isError: true,
+          errorMessage: 'Email already is use',
+          loading: false,
+        });
+        break;
+      case SIGN_UP_STATUS.INVALID_EMAIL:
+        this.setState({
+          isError: true,
+          errorMessage: 'Invalid Email',
+          loading: false,
+        });
+        break;
+    }
   }
   componentDidMount() {
     this.ValidateUserInfo = new ValidateUserInfo();
   }
 
   render() {
-    const {loading, isDisabled} = this.state;
+    const {loading, isDisabled, isError, errorMessage} = this.state;
     return (
       <View style={styles.container}>
         {loading && <StandardActivityIndicator />}
@@ -86,6 +128,8 @@ class SignUpPage extends React.Component {
           }}
           onchangePassword={password => this.onchangePassword(password)}
           onPressConfirm={() => this.onPressConfirm()}
+          isError={isError}
+          errorMessage={errorMessage}
         />
       </View>
     );
