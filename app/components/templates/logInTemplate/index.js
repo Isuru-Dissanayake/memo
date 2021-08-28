@@ -24,8 +24,6 @@ const LogInTemplate = props => {
     onPressConfirm,
     isError,
     errorMessage,
-    emailRef,
-    passwordRef,
   } = props;
   return (
     <View style={styles.container}>
@@ -36,7 +34,6 @@ const LogInTemplate = props => {
       </View>
       <View style={styles.textInputContainer}>
         <StandardTextInput
-          ref={emailRef}
           autoFocus={false}
           placeholder={'email'}
           placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
@@ -44,7 +41,6 @@ const LogInTemplate = props => {
           onChangeText={email => onChangeEmail(email)}
         />
         <StandardTextInput
-          ref={passwordRef}
           placeholder={'password'}
           placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
           secureTextEntry={true}
