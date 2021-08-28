@@ -1,4 +1,7 @@
-import {createNavigationContainerRef} from '@react-navigation/native';
+import {
+  createNavigationContainerRef,
+  CommonActions,
+} from '@react-navigation/native';
 
 const navigationRef = createNavigationContainerRef();
 
@@ -8,4 +11,12 @@ function navigateWithState(name, params) {
   }
 }
 
-export default {navigationRef, navigateWithState};
+function navigate(name, params) {
+  navigationRef.dispatch(
+    CommonActions.reset({
+      index: 1,
+      routes: [{name: name, params: params}],
+    }),
+  );
+}
+export default {navigationRef, navigateWithState, navigate};
