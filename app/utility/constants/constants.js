@@ -3,6 +3,7 @@ export const APP_PREFIX = 'voez://';
 export const NAVIGATION_SCREENS = {
   SplashPage: 'SplashPage',
   SignUpPage: 'SignUpPage',
+  SetUserNamePage: 'SetUserNamePage',
 };
 
 export const SIGN_UP_STATUS = {

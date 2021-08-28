@@ -24,6 +24,8 @@ const LogInTemplate = props => {
     onPressConfirm,
     isError,
     errorMessage,
+    isUserNameTemplate,
+    onChangeUserName,
   } = props;
   return (
     <View style={styles.container}>
@@ -32,30 +34,52 @@ const LogInTemplate = props => {
         <Text style={styles.headerText}>{title}</Text>
         <Text style={styles.headerSubtitle}>{subtitle}</Text>
       </View>
-      <View style={styles.textInputContainer}>
-        <StandardTextInput
-          autoFocus={false}
-          placeholder={'email'}
-          placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
-          containerStyle={styles.textInput}
-          onChangeText={email => onChangeEmail(email)}
-        />
-        <StandardTextInput
-          placeholder={'password'}
-          placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
-          secureTextEntry={true}
-          onChangeText={password => onchangePassword(password)}
-        />
-        {isError ? (
-          <View style={styles.errorMessageContainer}>
-            <Text style={commonStyles.errorText}>{errorMessage}</Text>
-          </View>
-        ) : (
-          <View>
-            <Text style={commonStyles.errorText}>{null}</Text>
-          </View>
-        )}
-      </View>
+      {isUserNameTemplate ? (
+        <View style={styles.textInputContainer}>
+          <StandardTextInput
+            autoFocus={false}
+            placeholder={'username'}
+            placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
+            containerStyle={styles.textInput}
+            onChangeText={username => onChangeUserName(username)}
+          />
+          {isError ? (
+            <View style={styles.errorMessageContainer}>
+              <Text style={commonStyles.errorText}>{errorMessage}</Text>
+            </View>
+          ) : (
+            <View>
+              <Text style={commonStyles.errorText}>{null}</Text>
+            </View>
+          )}
+        </View>
+      ) : (
+        <View style={styles.textInputContainer}>
+          <StandardTextInput
+            autoFocus={false}
+            placeholder={'email'}
+            placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
+            containerStyle={styles.textInput}
+            onChangeText={email => onChangeEmail(email)}
+          />
+          <StandardTextInput
+            placeholder={'password'}
+            placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
+            secureTextEntry={true}
+            onChangeText={password => onchangePassword(password)}
+          />
+          {isError ? (
+            <View style={styles.errorMessageContainer}>
+              <Text style={commonStyles.errorText}>{errorMessage}</Text>
+            </View>
+          ) : (
+            <View>
+              <Text style={commonStyles.errorText}>{null}</Text>
+            </View>
+          )}
+        </View>
+      )}
+
       <View style={styles.buttonContainer}>
         <StandardButton
           disabled={isDisabled}

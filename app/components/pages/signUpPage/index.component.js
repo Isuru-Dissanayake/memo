@@ -8,6 +8,8 @@ import {StandardActivityIndicator} from '../../atoms/index';
 import {LogInTemplate} from '../../templates/index';
 import ValidateUserInfo from '../../../utility/validateUserInfo';
 import {SIGN_UP_STATUS} from '../../../utility/constants/constants';
+import navigationServices from '../../../services/navigationServices';
+import {NAVIGATION_SCREENS} from '../../../utility/constants/constants';
 
 import {AuthApi, AccountApi} from '../../../utility/apis';
 @inject('authStore')
@@ -73,7 +75,8 @@ class SignUpPage extends React.Component {
   async createNewUser() {
     const {authStore} = this.props;
     const currentUser = this.AuthApi.getCurrentUser();
-    await this.accountApi.createNewUser(currentUser.email, currentUser.uid);
+    await this.accountApi.createNewUser(currentUser.uid, currentUser.email);
+    navigationServices.navigateWithState(NAVIGATION_SCREENS.SetUserNamePage);
   }
 
   async onPressConfirm() {

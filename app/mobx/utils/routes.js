@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 
-import {SplashPage, SignUpPage} from '../../components/pages';
+import {SplashPage, SignUpPage, SetUserNamePage} from '../../components/pages';
 import {NAVIGATION_SCREENS} from '../../utility/constants/constants';
 import colors from '../../theme/colors';
 
@@ -40,6 +40,14 @@ function StackNavigator() {
       <Stack.Screen
         name={NAVIGATION_SCREENS.SignUpPage}
         component={SignUpPage}
+        options={{
+          title: 'Sign Up',
+          headerMode: 'screen',
+        }}
+      />
+      <Stack.Screen
+        name={NAVIGATION_SCREENS.SetUserNamePage}
+        component={SetUserNamePage}
         options={{
           title: 'Sign Up',
           headerMode: 'screen',
