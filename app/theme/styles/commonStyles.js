@@ -38,4 +38,9 @@ export default StyleSheet.create({
     fontFamily: 'SFUIDisplay-Medium',
     fontSize: 14,
   },
+  highlightText: {
+    color: colors.PRIMARY_BLUE,
+    fontFamily: 'SFUIDisplay-Medium',
+    fontSize: 16,
+  },
 });
