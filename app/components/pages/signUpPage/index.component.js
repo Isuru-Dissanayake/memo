@@ -2,14 +2,16 @@ import React from 'react';
 import {View, Text, Keyboard} from 'react-native';
 import styles from './styles';
 import LOGGER from '../../../utility/logger';
+import {inject, observer} from 'mobx-react';
 
 import {StandardActivityIndicator} from '../../atoms/index';
 import {LogInTemplate} from '../../templates/index';
 import ValidateUserInfo from '../../../utility/validateUserInfo';
 import {SIGN_UP_STATUS} from '../../../utility/constants/constants';
 
-import AuthApi from '../../../utility/apis/auth/authApi';
-
+import {AuthApi, AccountApi} from '../../../utility/apis';
+@inject('authStore')
+@observer
 class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,7 @@ class SignUpPage extends React.Component {
       errorMessage: null,
     };
     this.AuthApi = new AuthApi();
+    this.accountApi = new AccountApi();
   }
 
   isValidEmailPassword(e) {
@@ -66,6 +69,13 @@ class SignUpPage extends React.Component {
       },
     );
   }
+
+  async createNewUser() {
+    const {authStore} = this.props;
+    const currentUser = this.AuthApi.getCurrentUser();
+    await this.accountApi.createNewUser(currentUser.email, currentUser.uid);
+  }
+
   async onPressConfirm() {
     const {email, password} = this.state;
     Keyboard.dismiss();
@@ -76,22 +86,23 @@ class SignUpPage extends React.Component {
     );
     switch (signupStatus) {
       case SIGN_UP_STATUS.ACCOUNT_CREATED:
-        this.setState({isError: false});
-        return;
+        this.setState({isError: false, loading: false});
+        this.createNewUser();
+        break;
       case SIGN_UP_STATUS.EMAIL_ALREADY_USED:
         this.setState({
           isError: true,
           errorMessage: 'Email already is use',
           loading: false,
         });
-        return;
+        break;
       case SIGN_UP_STATUS.INVALID_EMAIL:
         this.setState({
           isError: true,
           errorMessage: 'Invalid Email',
           loading: false,
         });
-        return;
+        break;
     }
   }
   componentDidMount() {
