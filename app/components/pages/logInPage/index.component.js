@@ -110,7 +110,7 @@ class LogInPage extends React.Component {
     }
   }
   componentDidMount() {
-    this.authApi.signOutCurrentUser();
+    //this.authApi.signOutCurrentUser();
     this.ValidateUserInfo = new ValidateUserInfo();
   }
 
