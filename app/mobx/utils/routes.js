@@ -7,6 +7,7 @@ import {
   SignUpPage,
   SetUserNamePage,
   HomePage,
+  LogInPage,
 } from '../../components/pages';
 import {NAVIGATION_SCREENS} from '../../utility/constants/constants';
 import colors from '../../theme/colors';
@@ -63,6 +64,14 @@ function StackNavigator() {
         component={HomePage}
         options={{
           title: 'HomePage',
+          headerMode: 'screen',
+        }}
+      />
+      <Stack.Screen
+        name={NAVIGATION_SCREENS.LogInPage}
+        component={LogInPage}
+        options={{
+          title: 'Log In',
           headerMode: 'screen',
         }}
       />

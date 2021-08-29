@@ -32,7 +32,7 @@ class SplashPage extends React.Component {
   };
 
   onLogInPress = () => {
-    navigationServices.navigate(NAVIGATION_SCREENS.HomePage);
+    navigationServices.navigateWithState(NAVIGATION_SCREENS.LogInPage);
   };
 
   onAuthStateChanged(user) {
@@ -45,7 +45,6 @@ class SplashPage extends React.Component {
   }
 
   componentDidMount() {
-    //this.authApi.signOutCurrentUser();
     const {authStore} = this.props;
     this.setState({loading: true});
     const subscriber = auth().onAuthStateChanged(user => {

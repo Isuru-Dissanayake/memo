@@ -1,5 +1,5 @@
 import auth from '@react-native-firebase/auth';
-import {SIGN_UP_STATUS} from '../../constants/constants';
+import {SIGN_UP_STATUS, LOG_IN_STATUS} from '../../constants/constants';
 
 class AuthApi {
   constructor(props) {}
@@ -24,6 +24,31 @@ class AuthApi {
         }
       });
     return signupStatus;
+  }
+
+  async signInUserWithEmail(email, password) {
+    let logInStatus;
+    await auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        logInStatus = LOG_IN_STATUS.SUCCESSFUL;
+      })
+      .catch(error => {
+        if (error.code === 'auth/invalid-email') {
+          logInStatus = LOG_IN_STATUS.INVALID_EMAIL;
+        }
+        if (error.code === 'auth/user-not-found') {
+          logInStatus = LOG_IN_STATUS.USER_NOT_FOUND;
+        }
+        if (error.code === 'auth/wrong-password') {
+          logInStatus = LOG_IN_STATUS.WRONG_PASSWORD;
+        }
+        if (error.code === 'auth/user-disabled') {
+          logInStatus = LOG_IN_STATUS.USER_DISABLED;
+        }
+      });
+    console.log(logInStatus);
+    return logInStatus;
   }
 
   async signOutCurrentUser() {
