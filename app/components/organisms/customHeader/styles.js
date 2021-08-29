@@ -6,13 +6,16 @@ export default StyleSheet.create({
   container: {
     minHeight: 50,
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: colors.BACKGROUND_BLACK,
     marginTop: 0,
-    paddingTop: 15,
-    paddingBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
     borderBottomWidth: 0.3,
     borderBottomColor: colors.BORDER_WHITE,
+  },
+  logoStyles: {
+    height: 40,
+    width: 40,
   },
 });
