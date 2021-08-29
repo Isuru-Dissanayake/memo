@@ -1,6 +1,7 @@
 export default {
   BACKGROUND_BLACK: '#000000',
   BACKGROUND_WHITE: '#ffffff',
+  BORDER_WHITE: 'rgba(255, 255, 255, 0.38)',
 
   PRIMARY_WHITE: '#ffffff',
   PRIMARY_BLUE: '#4881FF',

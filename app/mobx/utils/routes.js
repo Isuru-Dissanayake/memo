@@ -9,6 +9,7 @@ import {
   HomePage,
   LogInPage,
 } from '../../components/pages';
+import {CustomHeader} from '../../components/organisms';
 import {NAVIGATION_SCREENS} from '../../utility/constants/constants';
 import colors from '../../theme/colors';
 
@@ -27,7 +28,7 @@ const MyTheme = {
 function StackNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName={NAVIGATION_SCREENS.SplashPage}
+      initialRouteName={NAVIGATION_SCREENS.HomePage}
       screenOptions={{
         headerStyle: {backgroundColor: colors.BACKGROUND_BLACK},
         headerTintColor: colors.PRIMARY_BLUE,
@@ -65,6 +66,7 @@ function StackNavigator() {
         options={{
           title: 'HomePage',
           headerMode: 'screen',
+          header: props => <CustomHeader {...props} />,
         }}
       />
       <Stack.Screen
