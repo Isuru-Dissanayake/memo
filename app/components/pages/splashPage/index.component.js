@@ -31,6 +31,10 @@ class SplashPage extends React.Component {
     navigationServices.navigateWithState(NAVIGATION_SCREENS.SignUpPage);
   };
 
+  onLogInPress = () => {
+    navigationServices.navigate(NAVIGATION_SCREENS.HomePage);
+  };
+
   onAuthStateChanged(user) {
     const {authStore} = this.props;
     if (user) {
@@ -67,7 +71,7 @@ class SplashPage extends React.Component {
           />
           <StandardButton
             title={'Log In'}
-            onPress={() => {}}
+            onPress={this.onLogInPress}
             containerStyle={styles.logInbuttonStyle}
             textStyle={styles.logInText}
           />

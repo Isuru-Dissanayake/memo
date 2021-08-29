@@ -4,6 +4,7 @@ export const NAVIGATION_SCREENS = {
   SplashPage: 'SplashPage',
   SignUpPage: 'SignUpPage',
   SetUserNamePage: 'SetUserNamePage',
+  HomePage: 'HomePage',
 };
 
 export const SIGN_UP_STATUS = {
