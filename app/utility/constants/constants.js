@@ -8,6 +8,10 @@ export const NAVIGATION_SCREENS = {
   LogInPage: 'LogInPage',
 };
 
+export const NAVIGATION_TABS = {
+  HomeTab: 'HomeTab',
+};
+
 export const SIGN_UP_STATUS = {
   ACCOUNT_CREATED: 'ACCOUNT_CREATED',
   EMAIL_ALREADY_USED: 'EMAIL_ALREADY_USED',

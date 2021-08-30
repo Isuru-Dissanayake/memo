@@ -1,6 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import {
   SplashPage,
@@ -10,12 +12,17 @@ import {
   LogInPage,
 } from '../../components/pages';
 import {CustomHeader} from '../../components/organisms';
-import {NAVIGATION_SCREENS} from '../../utility/constants/constants';
+import {TabBar} from '../../components/atoms';
+import {
+  NAVIGATION_SCREENS,
+  NAVIGATION_TABS,
+} from '../../utility/constants/constants';
 import colors from '../../theme/colors';
 
 import navigationServices from '../../services/navigationServices';
 
 const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const MyTheme = {
   ...DefaultTheme,
@@ -81,10 +88,33 @@ function StackNavigator() {
   );
 }
 
+function TabNavigator() {
+  return (
+    <Tab.Navigator
+      initialRouteName={NAVIGATION_TABS.HomeTab}
+      screenOptions={({route}) => ({
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {height: 50, borderTopWidth: 0},
+        tabBarBackground: props => <TabBar {...props} />,
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+
+          if (route.name === NAVIGATION_TABS.HomeTab) {
+            iconName = focused ? 'reader' : 'reader-outline';
+          }
+          return <Icon name={iconName} size={30} color={'white'} />;
+        },
+      })}>
+      <Tab.Screen name={NAVIGATION_TABS.HomeTab} component={StackNavigator} />
+    </Tab.Navigator>
+  );
+}
+
 export default function AppContainer() {
   return (
     <NavigationContainer theme={MyTheme} ref={navigationServices.navigationRef}>
-      <StackNavigator />
+      <TabNavigator />
     </NavigationContainer>
   );
 }
